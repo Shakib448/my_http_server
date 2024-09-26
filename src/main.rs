@@ -1,9 +1,8 @@
+use serde_json::json;
 use std::{
     io::{BufRead, BufReader, Result, Write},
     net::{TcpListener, TcpStream},
 };
-
-use serde_json::json;
 
 fn main() -> Result<()> {
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
