@@ -17,6 +17,7 @@ fn main() -> Result<()> {
 
 fn handle_connection(mut stream: TcpStream) {
     let buf_reader = BufReader::new(&mut stream);
+
     let http_request: Vec<_> = buf_reader
         .lines()
         .map(|result| result.unwrap())
@@ -32,7 +33,14 @@ fn handle_connection(mut stream: TcpStream) {
     let json_string = serde_json::to_string(&data).unwrap();
 
     let response = format!(
-        "HTTP/1.1 200 OK\r\nContent-Length: {}\r\nContent-Type: application/json\r\n\r\n{}",
+        "HTTP/1.1 200 OK\r\n\
+        Content-Length: {}\r\n\
+        Content-Type: application/json\r\n\
+        Access-Control-Allow-Origin: *\r\n\
+        Access-Control-Allow-Methods: GET, POST, OPTIONS\r\n\
+        Access-Control-Allow-Headers: Content-Type\r\n\
+        \r\n\
+        {}",
         json_string.len(),
         json_string
     );
