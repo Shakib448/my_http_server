@@ -11,10 +11,8 @@ fn main() -> Result<()> {
         let stream = stream.unwrap();
         handle_connection(stream);
     }
-
     Ok(())
 }
-
 fn handle_connection(mut stream: TcpStream) {
     let buf_reader = BufReader::new(&mut stream);
 
